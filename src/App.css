@@ -36,3 +36,49 @@
     transform: rotate(360deg);
   }
 }
+.card__div{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  gap: 20px;
+}
+.card{
+  margin-top: 100px;
+  background-color:white;
+  width: 20%;
+  height: 200px;
+  color: rgb(16, 16, 16);
+  padding: 30px;
+  border-radius:10px;
+  text-align: center;
+  box-shadow:.8px .8px 8px 1px rgba(128, 128, 128, 0.806) ;
+  
+}
+.input__field input{
+  margin: 1.5rem;
+  padding:.8rem;
+  width: 20rem;
+  border-radius:10px;
+  border: 1px solid rgba(37, 37, 214, 0.704); 
+}
+.input__field label{
+  font-weight: bold;
+}
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+}
+.btn{
+  padding: .5rem;
+  margin: .5rem;
+  cursor: pointer;
+  width: 5rem;
+  background-color: rgba(37, 37, 214, 0.704);
+  color: #fff;
+  border-radius:10px;
+  outline: none;
+  border: none;
+
+}
