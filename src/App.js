@@ -7,6 +7,11 @@ function App() {
   const [error, setError] = useState();
   const [isLoading, setLoading] = useState(true);
 
+  // update
+  const [selectedUser,setSelectedUser]=useState(null);
+  const [updateUser,setUpdateUser]=useState(false);
+  const [selectedUserId,setSelectedUserId] =useState("");
+
   const getFetch = () => {
     fetch("https://rest-api-without-db.herokuapp.com/users/")
       .then((res) => {
@@ -47,10 +52,37 @@ function App() {
   }
 
   // Edit user 
-const handleEdit = () =>{
+const handleEdit = (id) =>{
+  setSelectedUserId(id);
+  const filterUser= userData.filter((user)=>user.id===id);
+  setSelectedUser({
+    username:filterUser[0].username,
+    email:filterUser[0].email,
+  })
+  setUpdateUser(true);
   
 }
 
+const handleUpdate= (user)=>{
+  fetch("https://rest-api-without-db.herokuapp.com/users/" + `/${selectedUserId}`,{
+    method:"PUT",
+    headers:{
+      "Content-Type":"application/json"
+
+    },
+    body:JSON.stringify(user),
+  })
+  .then((res)=>{
+    if (!res.ok){
+      throw new Error("Could not update")
+    }
+    getFetch();
+  })
+  .catch((err)=>{
+    setError(err.message);
+    setUpdateUser(false)
+  })
+}
 // create data
 
 const addData=(user)=>{
@@ -81,7 +113,11 @@ const addData=(user)=>{
       <h1>User Management App...</h1>
       {isLoading && <h2>Server is Loading...</h2>}
       {error && <h2>{error}</h2>}
-      <Formcontrol btnText="Add User" handleData={addData}/>
+      {
+        updateUser?(<Formcontrol btnText="Update User" handleData={handleUpdate} selectedUser={selectedUser}/>):
+        (<Formcontrol btnText="Add User" handleData={addData}/>)
+      }
+      
       <div  className="card__div">
       {userData &&
         userData.map((user) => {

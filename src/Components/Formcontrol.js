@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import PropTypes from 'prop-types'
 
-const Formcontrol = ({handleData,btnText}) => {
+const Formcontrol = ({handleData,btnText,selectedUser}) => {
 
     const [user,setUser]= useState({
         username:" ",
         email:" ",
     });
+
+   useEffect(() => {
+     setUser({
+      username: selectedUser.username,
+      email:selectedUser.email,
+     })
+   
+     
+   }, [selectedUser])
+   
+    
     const {username,email}=user;
 
     const handleChange=(e)=>{
@@ -62,5 +74,13 @@ const Formcontrol = ({handleData,btnText}) => {
     </>
   );
 };
+
+Formcontrol.defaultProps={
+  selectedUser:{
+    username:'',
+    email:''
+  }
+
+}
 
 export default Formcontrol;
